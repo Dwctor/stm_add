@@ -7,6 +7,6 @@ mod unit_tests {
         // A test template to be deleted eventually
         let config: Config = Config {target: "/usr/share/".to_string()};
          
-        assert_eq!(config.target, "/usr/share/a");
+        assert_eq!(config.target, "/usr/share/");
     }
 }
