@@ -5,8 +5,8 @@ mod unit_tests {
     #[test]
     fn trivially_true_test() {
         // A test template to be deleted eventually
-        let config: Config = Config {target: "/usr/share/".to_string()};
+        let var = "/usr/share/";
          
-        assert_eq!(config.target, "/usr/share/");
+        assert_eq!(var, "/usr/share/");
     }
 }
