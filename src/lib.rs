@@ -39,8 +39,8 @@ pub struct Config {
 // ------------------------------------
 
 impl Config {
-    pub fn new(){
-        Config{..Config::default()};
+    pub fn new() -> Config{
+        Config{..Config::default()}
     }
     // To test: 
         // Make sure that program_dir_str has the same dir as program_dir
@@ -76,30 +76,30 @@ impl Config {
     // Method to create a .desktop file from a Config.
     pub fn config_to_desktop_file_str(config: &Config) -> String {
         // Format follows https://specifications.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html#recognized-keys
-        let title = "
-        [Desktop Entry]
-        # This file has been written by stm_add.
-        # stm_add creates files following the format of:
-        # https://specifications.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html#recognized-keys
-        ";
+        let title = 
+"[Desktop Entry]
+# This file has been written by stm_add.
+# stm_add creates files following the format of:
+# https://specifications.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html#recognized-keys\n
+";
 
-        let required_values = format!("
-        # -----------------------------------------------------------
-        # Required Values
-        # -----------------------------------------------------------
-        Type = {}
-        Name = {}
-        Exec = {}
-        # URL is for links.
-        # URL = _insert_link_here_ \n
-        ", "Application", config.file_name , config.file_dir_str);
+        let required_values = format!(
+"# -----------------------------------------------------------
+# Required Values
+# -----------------------------------------------------------
+Type = {}
+Name = {}
+Exec = {}
+# URL is for links.
+# URL = _insert_link_here_ \n
+", "Application", config.file_name , config.file_dir_str);
 
-        let optional_values = "
-        # -----------------------------------------------------------
-        # Optional Values
-        # -----------------------------------------------------------
+        let optional_values = 
+"# -----------------------------------------------------------
+# Optional Values
+# -----------------------------------------------------------
 
-        "; // Implement optional values here
+"; // Implement optional values here
 
         format!("{}{}{}", title, required_values, optional_values)
 
