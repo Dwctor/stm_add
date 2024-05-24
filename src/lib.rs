@@ -1,5 +1,5 @@
 use core::panic;
-use std::{env, fs};
+use std::fs;
 use std::path::PathBuf;
 
 // The configuration struct contains the information needed to do the final .desktop creation.
@@ -39,21 +39,11 @@ pub struct Config {
 // ------------------------------------
 
 impl Config {
-    pub fn new() -> Config{
+    pub fn new() -> Self {
         Config{..Config::default()}
     }
-    // To test: 
-        // Make sure that program_dir_str has the same dir as program_dir
-        // Make sure that both program_dir_sr and program_dir are not relative directories
-        // Make sure that desktop_dir ends with .desktop 
-        // Make sure that desktop_dir is the concatenation of desktop_folder and program_name
-        // Verify that program_name doesn't include any "/"
-        // Check that desktop_folder is one of the following: 
-            // ~/.local/share/applications/, /usr/share/applications/ or /usr/local/share/applications/
-        // Check that desktop_dir is in desktop_folder
-    // Gather user input, in this case program_dir_str, into the Config type
-    pub fn user_input_to_config(user_input: env::Args) -> Config {
-        let user_input: Vec<String> = user_input.collect();
+
+    pub fn user_input_to_config(user_input: Vec<String>) -> Config {
         validate_user_input(&user_input);
         let file_dir_str = &user_input[1];
         let file_dir = fs::canonicalize(&file_dir_str).expect("Failed to canonicalize file path.");
@@ -102,17 +92,13 @@ Exec = {}
 "; // Implement optional values here
 
         format!("{}{}{}", title, required_values, optional_values)
-
     }
-
 }
 
 // ------------------------------------
 // Private API
 // ------------------------------------
 
-// To test:
-    // quite a lot! use creativity
 fn get_file_name_from_dir(program_dir: &PathBuf) -> String {
     use std::ffi::OsStr;
     let file_name: &OsStr = match program_dir.file_name() {
@@ -128,11 +114,6 @@ fn get_file_name_from_dir(program_dir: &PathBuf) -> String {
     file_name.to_string()
 }
 
-// To test:
-    // Confirm that a case where vec[1] isn't a file panics
-    // test size > 2 panics
-    // test a valid case and see if it runs
-    // much more here
 fn validate_user_input(user_input: &Vec<String>) {
     // Current user input validation follows one argument only.
     if user_input.len() > 2 {
