@@ -39,6 +39,9 @@ pub struct Config {
 // ------------------------------------
 
 impl Config {
+    pub fn new(){
+        Config{..Config::default()};
+    }
     // To test: 
         // Make sure that program_dir_str has the same dir as program_dir
         // Make sure that both program_dir_sr and program_dir are not relative directories
