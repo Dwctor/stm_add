@@ -1,9 +1,11 @@
 use core::panic;
 use std::fs;
 use std::path::PathBuf;
+use dirs;
 
 // The configuration struct contains the information needed to do the final .desktop creation.
 #[derive(Default)]
+#[derive(Debug)]
 pub struct Config {
     pub file_dir_str: String, // Original file of the program that will have a dotfile
     pub file_dir: PathBuf,
@@ -50,7 +52,7 @@ impl Config {
         let file_dir_str: String = file_dir.to_str().unwrap().to_string();
         // Todo: make get_program_name into the private API
         let file_name = get_file_name_from_dir(&file_dir);
-        let desktop_folder = "~/.local/share/applications/".to_string();
+        let desktop_folder = dirs::home_dir().unwrap().join(".local/share/applications/").to_str().unwrap().to_string();
         let desktop_dir = format!("{}{}.desktop", desktop_folder, file_name); 
 
         Config{
